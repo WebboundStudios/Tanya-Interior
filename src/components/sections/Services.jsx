@@ -1,27 +1,41 @@
 import React, { useRef, useState } from 'react';
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
 import { SERVICES_DATA } from '../../constants/data';
-import { Button } from '../ui/Button';
-import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion';
+
+function DesktopServiceTextBlock({ service, idx, onActive }) {
+  const ref = useRef(null);
+  
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start center', 'end center'],
+  });
+
+  useMotionValueEvent(scrollYProgress, 'change', (latest) => {
+    if (latest >= 0 && latest <= 1) {
+      onActive(idx);
+    }
+  });
+
+  return (
+    <div
+      ref={ref}
+      className="min-h-[75vh] flex flex-col justify-center py-16 sm:py-24 border-b border-[#D9D0BC]/40 last:border-b-0"
+    >
+      <h3 className="font-sans font-bold text-3xl sm:text-4xl md:text-5xl uppercase tracking-tight text-[#15140F] mb-6 leading-[1.1]">
+        {idx + 1}. {service.title}
+      </h3>
+
+      <p className="text-base sm:text-lg text-[#15140F] font-normal leading-[1.7] max-w-lg font-sans">
+        {service.description}
+      </p>
+    </div>
+  );
+}
 
 export function Services() {
-  const desktopSectionRef = useRef(null);
-  const mobileSectionRef = useRef(null);
-
-  const [desktopActiveIndex, setDesktopActiveIndex] = useState(0);
+  const [activeIdx, setActiveIdx] = useState(0);
   const [mobileActiveIndex, setMobileActiveIndex] = useState(0);
-
-  const { scrollYProgress: desktopScrollProgress } = useScroll({
-    target: desktopSectionRef,
-    offset: ['start start', 'end end'],
-  });
-
-  useMotionValueEvent(desktopScrollProgress, 'change', (latest) => {
-    const index = Math.min(
-      SERVICES_DATA.length - 1,
-      Math.floor(latest * SERVICES_DATA.length)
-    );
-    if (index !== desktopActiveIndex) setDesktopActiveIndex(index);
-  });
+  const mobileSectionRef = useRef(null);
 
   const { scrollYProgress: mobileScrollProgress } = useScroll({
     target: mobileSectionRef,
@@ -36,13 +50,14 @@ export function Services() {
     if (index !== mobileActiveIndex) setMobileActiveIndex(index);
   });
 
-  const desktopService = SERVICES_DATA[desktopActiveIndex] || SERVICES_DATA[0];
+  const activeService = SERVICES_DATA[activeIdx] || SERVICES_DATA[0];
 
   return (
-    <>
-      {/* MOBILE VIEW ONLY (< md) */}
-      <section ref={mobileSectionRef} id="services-mobile" className="block md:hidden relative bg-[#F8F6F2] py-4">
-        <div className="sticky top-0 z-30 bg-[#F8F6F2] pt-14 pb-4 overflow-hidden border-b border-[#E8E2D8]/50">
+    <section id="services" className="bg-[#F7F5EE] text-[#15140F]">
+      
+      {/* MOBILE VIEW ONLY (< lg) — Restored previous mobile horizontal sliding deck layout */}
+      <div ref={mobileSectionRef} className="block lg:hidden relative py-12">
+        <div className="sticky top-0 z-30 bg-[#F7F5EE] pt-8 pb-4 overflow-hidden border-b border-[#D9D0BC]/50">
           <div className="w-full pl-6 overflow-hidden">
             <motion.div
               className="flex items-center gap-2"
@@ -59,8 +74,8 @@ export function Services() {
                       scale: isActive ? 1 : 0.85,
                     }}
                     transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                    className={`relative shrink-0 w-[83vw] aspect-[4/3] rounded-[10px] overflow-hidden bg-[#EFECE6] border border-[#E8E2D8] cursor-pointer origin-left transition-shadow duration-500 ${
-                      isActive ? 'ring-1 ring-[#8C6D46]/40 shadow-[0_20px_45px_-25px_rgba(31,31,31,0.4)]' : ''
+                    className={`relative shrink-0 w-[83vw] aspect-[4/3] rounded-xl overflow-hidden bg-[#E4DBC6] border border-[#D9D0BC] cursor-pointer origin-left transition-shadow duration-500 ${
+                      isActive ? 'ring-1 ring-[#A6813F]/40 shadow-xl' : ''
                     }`}
                   >
                     <img
@@ -70,126 +85,78 @@ export function Services() {
                       loading="lazy"
                       referrerPolicy="no-referrer"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
                   </motion.div>
                 );
               })}
             </motion.div>
           </div>
-
         </div>
 
-        <div className="max-w-7xl mx-auto px-6 relative z-10 flex flex-col gap-12 pt-10 pb-16">
-          {SERVICES_DATA.map((service) => (
+        <div className="max-w-7xl mx-auto px-6 relative z-10 flex flex-col gap-10 pt-10 pb-16">
+          {SERVICES_DATA.map((service, idx) => (
             <div
               key={service.id}
-              className="flex flex-col items-start min-h-[200px] justify-center border-b border-[#E8E2D8]/60 pb-8 last:border-b-0"
+              className="flex flex-col items-start justify-center border-b border-[#D9D0BC]/60 pb-8 last:border-b-0"
             >
-              <span className="text-xs uppercase tracking-[0.25em] text-[#8C6D46] font-semibold mb-2 block">
-                {service.subtitle || 'OUR SERVICE'}
+              <span className="text-xs font-mono text-[#A6813F] font-semibold mb-2 block tracking-widest">
+                0{idx + 1} — {service.subtitle || 'OUR SERVICE'}
               </span>
 
-              <h2 className="font-serif text-3xl font-normal leading-[1.12] text-[#1F1F1F] mb-4">
+              <h2 className="font-serif text-3xl font-normal leading-[1.12] text-[#15140F] mb-4">
                 {service.title}
               </h2>
 
-              <p className="text-sm text-[#6F6F6F] font-light leading-relaxed mb-6">
+              <p className="text-sm text-[#4B473E] font-normal leading-relaxed">
                 {service.description}
               </p>
-
-              <Button
-                variant="dark"
-                href="#contact"
-                fillEffect={false}
-                className="w-full justify-center py-3.5 px-8 rounded-[10px] bg-[#1F1F1F] text-white border-[#1F1F1F]"
-              >
-                {service.ctaText || 'Service Detail'}
-              </Button>
             </div>
           ))}
         </div>
-      </section>
+      </div>
 
-      {/* DESKTOP VIEW ONLY (≥ md) */}
-      <section ref={desktopSectionRef} id="services" className="hidden md:block relative h-[300vh] bg-[#F8F6F2]">
-        <div className="sticky top-0 h-screen overflow-hidden flex">
-          {/* LEFT — text column */}
-          <div className="flex flex-col justify-center pl-14 md:pl-20 pr-10 w-[44%] shrink-0">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={desktopService.id}
-                initial={{ opacity: 0, y: 36 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -36 }}
-                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                className="flex flex-col items-start"
-              >
-                <span className="text-xs uppercase tracking-[0.3em] text-[#8C6D46] font-semibold mb-3 flex items-center gap-3">
-                  {desktopService.subtitle || 'OUR SERVICE'}
-                </span>
-
-                <h2 className="font-serif text-[2.8rem] lg:text-5xl font-normal leading-[1.08] text-[#1F1F1F] mb-7 tracking-tight">
-                  {desktopService.title}
-                </h2>
-
-                <p className="text-sm text-[#6F6F6F] font-light leading-[1.75] mb-9 max-w-[360px]">
-                  {desktopService.description}
-                </p>
-
-                <Button variant="dark" href="#contact">
-                  {desktopService.ctaText}
-                </Button>
-              </motion.div>
-            </AnimatePresence>
-
-            {/* Progress indicator, reflects position within the service sequence */}
-            {/* <div className="flex items-center gap-2 mt-12">
+      {/* DESKTOP VIEW ONLY (≥ lg) — Minimal 2-column natural scroll text + sticky image */}
+      <div className="hidden lg:block py-24 md:py-36">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start relative">
+            
+            {/* Left Column: Natural Vertical Scroll Text List */}
+            <div className="lg:col-span-6 flex flex-col">
               {SERVICES_DATA.map((service, idx) => (
-                <span
+                <DesktopServiceTextBlock
                   key={service.id}
-                  className="h-[3px] rounded-full bg-[#8C6D46] transition-all duration-500"
-                  style={{ width: idx === desktopActiveIndex ? '32px' : '10px', opacity: idx === desktopActiveIndex ? 1 : 0.25 }}
+                  service={service}
+                  idx={idx}
+                  onActive={(index) => setActiveIdx(index)}
                 />
               ))}
-            </div> */}
-          </div>
+            </div>
 
-          {/* RIGHT — full height image track */}
-          <div className="flex-1 relative overflow-hidden">
-            <motion.div
-              className="absolute inset-0 flex items-stretch gap-2"
-              animate={{ x: `-${desktopActiveIndex * 86.5}%` }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            >
-              {SERVICES_DATA.map((service, idx) => {
-                const isActive = idx === desktopActiveIndex;
-                return (
-                  <motion.div
+            {/* Right Column: Sticky Morphing Image Frame */}
+            <div className="lg:col-span-6 sticky top-28 h-[75vh] w-full">
+              <div className="w-full h-full rounded-2xl overflow-hidden bg-[#E4DBC6] shadow-2xl border border-[#D9D0BC]/80 relative">
+                {SERVICES_DATA.map((service, idx) => (
+                  <motion.img
                     key={service.id}
-                    onClick={() => setDesktopActiveIndex(idx)}
+                    src={service.image}
+                    alt={service.title}
+                    initial={false}
                     animate={{
-                      scale: isActive ? 1 : 0.85,
+                      opacity: idx === activeIdx ? 1 : 0,
+                      scale: idx === activeIdx ? 1 : 1.05,
                     }}
-                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                    className={`relative shrink-0 w-[86%] my-12 rounded-[10px] overflow-hidden bg-[#EFECE6] border border-[#E8E2D8] cursor-pointer origin-left transition-shadow duration-500 ${
-                      isActive ? 'shadow-[0_35px_80px_-30px_rgba(31,31,31,0.45)]' : ''
-                    }`}
-                  >
-                    <img
-                      src={service.image}
-                      alt={service.title}
-                      className="w-full h-full object-cover luxury-image-filter"
-                      loading="lazy"
-                      referrerPolicy="no-referrer"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
-                  </motion.div>
-                );
-              })}
-            </motion.div>
+                    transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                    className="w-full h-full object-cover luxury-image-filter absolute inset-0 pointer-events-none"
+                    loading="lazy"
+                    referrerPolicy="no-referrer"
+                  />
+                ))}
+              </div>
+            </div>
+
           </div>
         </div>
-      </section>
-    </>
+      </div>
+
+    </section>
   );
 }

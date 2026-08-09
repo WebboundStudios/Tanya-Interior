@@ -32,19 +32,19 @@ export default function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#161616] text-[#1F1F1F] font-sans antialiased">
+    <div className="min-h-screen bg-[#f3efe7] text-[#172832] font-sans antialiased">
       {/* Fine scroll-progress accent, reinforces the studio's precision-instrument identity */}
       <motion.div
         style={{ scaleX: scrollProgress }}
-        className="fixed top-0 left-0 right-0 h-[2px] bg-[#8C6D46] origin-left z-50"
+        className="fixed top-0 left-0 right-0 h-[3px] bg-[#e66d4b] origin-left z-50"
       />
 
-      <main className="relative">
-        {/* Fixed Hero Section (includes Navbar at top of Hero) */}
+      <main className="relative bg-[#F7F5EE]">
+        {/* Hero Section */}
         <Hero />
 
-        {/* Content Wrapper sliding up OVER fixed Hero (mt-[100vh] provides 100vh offset) */}
-        <div className="relative z-10 mt-[100vh] bg-[#F8F6F2] shadow-[0_-25px_60px_rgba(0,0,0,0.3)]">
+        {/* Content Wrapper */}
+        <div className="relative bg-[#F7F5EE]">
           <About />
           <Services />
           <WhyChooseUs />

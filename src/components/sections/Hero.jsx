@@ -1,203 +1,233 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { HERO_DATA, SITE_BRAND } from '../../constants/data';
-import { Button } from '../ui/Button';
-import { TextRoll } from '../ui/TextRoll';
-import { Menu, X } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { StaircaseMenu } from '../layout/StaircaseMenu';
 
-const heroContainer = {
-  hidden: {},
-  show: {
-    transition: { staggerChildren: 0.14, delayChildren: 0.5 },
-  },
-};
+function HeroCardItem({ card, fanProgress }) {
+  const rotate = useTransform(fanProgress, [0, 1], [card.startRotate, card.endRotate]);
+  const x = useTransform(fanProgress, [0, 1], [card.startX, card.endX]);
+  const y = useTransform(fanProgress, [0, 1], [card.startY, card.endY]);
 
-const heroItem = {
-  hidden: { opacity: 0, y: 26 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] },
-  },
-};
+  return (
+    <motion.div
+      style={{
+        rotate,
+        x,
+        y,
+        zIndex: card.zIndex,
+        transformOrigin: 'bottom center',
+      }}
+      className="absolute inset-0 rounded-2xl overflow-hidden bg-white shadow-2xl border border-[#D9D0BC]/90 pointer-events-none select-none"
+    >
+      <img
+        src={card.src}
+        alt={card.title}
+        className="w-full h-full object-cover luxury-image-filter"
+      />
+    </motion.div>
+  );
+}
 
 export function Hero() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const heroRef = useRef(null);
+  const [staircaseMenuOpen, setStaircaseMenuOpen] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
 
-  const navLinks = [
-    { name: 'Home', href: '#hero' },
-    { name: 'About', href: '#about' },
-    { name: 'Service', href: '#services' },
-    { name: 'Project', href: '#projects' },
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  });
+  const fanProgress = useTransform(scrollYProgress, [0, 0.14], [0, 1]);
+
+  const isMobile = windowWidth < 640;
+  const isTablet = windowWidth >= 640 && windowWidth < 1024;
+  const spreadFactor = isMobile ? 0.38 : isTablet ? 0.65 : 1;
+
+  const heroCards = [
+    {
+      src: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1000&q=80",
+      title: "Sculptural Form",
+      category: "Bespoke Styling",
+      startRotate: -2,
+      endRotate: -36,
+      startX: 0,
+      endX: -260 * spreadFactor,
+      startY: 0,
+      endY: 28,
+      zIndex: 10,
+    },
+    {
+      src: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80",
+      title: "Architectural Light",
+      category: "Spatial Flow",
+      startRotate: -4,
+      endRotate: -18,
+      startX: 0,
+      endX: -130 * spreadFactor,
+      startY: 6,
+      endY: 6,
+      zIndex: 20,
+    },
+    {
+      src: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1000&q=80",
+      title: "Minimalist Lounge",
+      category: "Materiality",
+      startRotate: 0,
+      endRotate: 0,
+      startX: 0,
+      endX: 0,
+      startY: 12,
+      endY: -16,
+      zIndex: 30,
+    },
+    {
+      src: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1000&q=80",
+      title: "Tactile Textures",
+      category: "Curated Living",
+      startRotate: 4,
+      endRotate: 18,
+      startX: 0,
+      endX: 130 * spreadFactor,
+      startY: 18,
+      endY: 6,
+      zIndex: 20,
+    },
+    {
+      src: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1000&q=80",
+      title: "Organic Chair",
+      category: "Curved Furniture",
+      startRotate: 2,
+      endRotate: 36,
+      startX: 0,
+      endX: 260 * spreadFactor,
+      startY: 24,
+      endY: 28,
+      zIndex: 10,
+    },
   ];
 
   return (
-    <section id="hero" className="fixed top-0 left-0 right-0 h-screen flex items-end pb-12 sm:pb-16 md:pb-20 overflow-hidden bg-[#161616] text-white z-0">
-      {/* Navbar INSIDE Hero Section ONLY */}
-      <motion.header
-        initial={{ opacity: 0, y: -16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute top-0 left-0 right-0 z-20 py-5 md:py-6"
-      >
-        <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
-          {/* Brand Logo & Full Name */}
-          <motion.a
-            initial="initial"
-            whileHover="hovered"
-            href="#hero"
-            className="flex items-center gap-3.5 group cursor-pointer"
-          >
-            <div className="flex flex-col">
-              <span className="font-serif text-base sm:text-lg md:text-xl font-normal tracking-wide text-white leading-tight">
-                {SITE_BRAND.fullName.includes('न्वी') ? (
-                  <span className="inline-flex items-baseline">
-                    <span>Kaa</span>
-                    <span className="font-arya font-bold px-[1px] text-white text-[1.1em]">न्वी</span>
-                    <span className="ml-1.5">Design Studio</span>
-                  </span>
-                ) : (
-                  <TextRoll>{SITE_BRAND.fullName}</TextRoll>
-                )}
-              </span>
-              <span className="text-[10px] uppercase tracking-[0.25em] text-[#D0C7BC] font-medium mt-0.5">
-                {`${SITE_BRAND.city} • Studio`}
-              </span>
+    <section
+      id="hero"
+      ref={heroRef}
+      className="relative min-h-screen w-full flex flex-col justify-between overflow-visible bg-[#F7F5EE] text-[#15140F] select-none px-6 md:px-12 pt-6 pb-12"
+    >
+        {/* 1. Header / Navigation Bar */}
+        <motion.header
+          initial={{ opacity: 0, y: -16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="w-full max-w-7xl mx-auto flex items-center justify-between z-30"
+        >
+          {/* Left: Brand Identity Logo */}
+          <a href="#hero" className="flex items-center gap-2.5 group cursor-pointer">
+            <div className="w-5 h-5 flex items-center justify-center text-[#15140F]">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" className="w-5 h-5">
+                <path d="M3 21V9l9-7 9 7v12H3z" />
+                <path d="M9 21V12h6v9" />
+              </svg>
             </div>
-          </motion.a>
+            <span className="font-sans font-extrabold text-lg sm:text-xl tracking-wider uppercase text-[#15140F]">
+              {SITE_BRAND.name || "TT INTERIORS"}
+            </span>
+          </a>
 
-          {/* Desktop Navigation Links — Architectural text links */}
-          <nav className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <motion.a
-                key={link.name}
-                initial="initial"
-                whileHover="hovered"
-                href={link.href}
-                className="text-xs uppercase tracking-[0.2em] font-medium text-white/90 hover:text-white transition-colors duration-300 relative py-1.5 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-white after:transition-all after:duration-300 hover:after:w-full cursor-pointer"
-              >
-                <TextRoll>{link.name}</TextRoll>
-              </motion.a>
-            ))}
-          </nav>
-
-          {/* Single Outlined Consultation Button */}
-          <div className="hidden md:block">
-            <Button variant="transparent-white" href="#contact">
-              Consultation
-            </Button>
+          {/* Center: Micro Category Tagline */}
+          <div className="hidden md:flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-[#6B6459] font-medium">
+            <span className="text-[#A6813F]">✳</span>
+            <span>INTERIOR STYLING — LIGHTING — TURNKEY</span>
           </div>
 
-          {/* Mobile Menu Toggle */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 text-white focus:outline-none"
-            aria-label="Toggle Menu"
+          {/* Right: Get In Touch CTA + Menu */}
+          <div className="flex items-center gap-6">
+            <a
+              href="#contact"
+              className="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-[#15140F] border-b border-[#15140F] pb-0.5 hover:opacity-70 transition-opacity"
+            >
+              <span>GET IN TOUCH</span>
+            </a>
+
+            <button
+              onClick={() => setStaircaseMenuOpen(true)}
+              className="p-1.5 text-[#15140F] hover:opacity-75 transition-opacity focus:outline-none cursor-pointer"
+              aria-label="Open Fullscreen Menu"
+            >
+              <div className="flex flex-col gap-1.5 w-6 items-end">
+                <span className="w-6 h-[2px] bg-[#15140F]" />
+                <span className="w-4 h-[2px] bg-[#15140F]" />
+              </div>
+            </button>
+          </div>
+
+          {/* Fullscreen Staircase Overlay Menu */}
+          <StaircaseMenu
+            isOpen={staircaseMenuOpen}
+            onClose={() => setStaircaseMenuOpen(false)}
+          />
+        </motion.header>
+
+        {/* 2. Main Hero Content — Huge Centered Headline + Overlapping Fanning Image Card Stack */}
+        <div className="relative w-full max-w-7xl mx-auto flex-1 flex flex-col items-center justify-center text-center my-auto py-8">
+          {/* Micro sub-headline for mobile/tablet */}
+          <div className="md:hidden flex items-center gap-1.5 text-[10px] uppercase tracking-[0.2em] text-[#6B6459] font-medium mb-3">
+            <span className="text-[#A6813F]">✳</span>
+            <span>INTERIOR STYLING — LIGHTING</span>
+          </div>
+
+          {/* Massive Headline */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            className="flex flex-col items-center justify-center leading-none z-10 select-none"
           >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+            {/* Top Line: Bold Modern Sans */}
+            <h1 className="font-sans font-bold tracking-tight text-[#15140F] text-[11vw] sm:text-[8.5vw] md:text-[7vw] lg:text-[6.5rem] uppercase leading-[0.9]">
+              CRAFTING
+            </h1>
+
+            {/* Bottom Line: High-contrast Elegant Serif */}
+            <h2 className="font-serif font-normal tracking-tight text-[#15140F] text-[12vw] sm:text-[9.5vw] md:text-[8vw] lg:text-[7.5rem] uppercase leading-[0.9] mt-1">
+              LUXURY SPACES
+            </h2>
+          </motion.div>
+
+          {/* Scroll-Fanning Cards Container */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, y: 40 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            className="relative mt-8 sm:mt-10 md:mt-12 z-20 mb-8 sm:mb-12"
+          >
+            <div className="relative w-[180px] sm:w-[240px] md:w-[280px] aspect-[3/4] mx-auto">
+              {heroCards.map((card, idx) => (
+                <HeroCardItem key={idx} card={card} fanProgress={fanProgress} />
+              ))}
+            </div>
+          </motion.div>
         </div>
 
-        {/* Mobile Menu Drawer inside Hero */}
-        <AnimatePresence>
-          {mobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="md:hidden bg-[#161616]/95 backdrop-blur-md border-b border-white/10 overflow-hidden"
-            >
-              <div className="px-6 py-6 flex flex-col gap-4 mt-4 text-white">
-                {navLinks.map((link, i) => (
-                  <motion.a
-                    key={link.name}
-                    initial={{ opacity: 0, x: -12 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.35, delay: i * 0.05, ease: [0.16, 1, 0.3, 1] }}
-                    href={link.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="text-sm font-semibold uppercase tracking-wider text-white hover:text-[#B08D57] py-2"
-                  >
-                    {link.name}
-                  </motion.a>
-                ))}
-                <Button variant="white" href="#contact" onClick={() => setMobileMenuOpen(false)} className="w-full mt-2">
-                  Consultation
-                </Button>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.header>
-
-      {/* Fullscreen Background Image with subtle warm overlay + slow Ken Burns drift */}
-      <div className="bg-grain absolute inset-0 z-0">
-        <motion.img
-          src={HERO_DATA.bgImage}
-          alt={SITE_BRAND.fullName}
-          className="w-full h-full object-cover object-top opacity-90 luxury-image-filter"
-          referrerPolicy="no-referrer"
-          initial={{ scale: 1.12 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 6, ease: [0.16, 1, 0.3, 1] }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/20 to-black/35" />
-      </div>
-
-      {/* Left-Aligned Hero Content Matching Dekora Layout */}
-      <motion.div
-        variants={heroContainer}
-        initial="hidden"
-        animate="show"
-        className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full flex flex-col items-start text-left"
-      >
-        {/* Editorial Serif Headline */}
-        <motion.h1
-          variants={heroItem}
-          className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-normal leading-[1.12] tracking-tight mb-6 text-white max-w-3xl drop-shadow-[0_4px_20px_rgba(0,0,0,0.35)]"
-        >
-          {HERO_DATA.title}
-        </motion.h1>
-
-        {/* Supporting Narrative */}
-        <motion.p
-          variants={heroItem}
-          className="text-sm sm:text-base md:text-lg text-white/90 max-w-xl font-normal leading-relaxed mb-8 drop-shadow-sm"
-        >
-          {HERO_DATA.description}
-        </motion.p>
-
-        {/* Dual CTAs — Stacked full-width on mobile to prevent horizontal clipping, horizontal on tablet/desktop */}
+        {/* 3. Bottom Hero Footer Bar */}
         <motion.div
-          variants={heroItem}
-          className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 sm:gap-4 w-full sm:w-auto"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          className="w-full max-w-7xl mx-auto flex items-center justify-between z-30 pt-4"
         >
-          <Button variant="white" href={HERO_DATA.primaryCta.href} className="w-full sm:w-auto text-center justify-center px-5 sm:px-7 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)]">
-            {HERO_DATA.primaryCta.text}
-          </Button>
-          <Button variant="transparent-white" href={HERO_DATA.secondaryCta.href} className="w-full sm:w-auto text-center justify-center px-5 sm:px-7">
-            {HERO_DATA.secondaryCta.text}
-          </Button>
-        </motion.div>
-      </motion.div>
+          <span className="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.22em] text-[#15140F]">
+            WE ARE {SITE_BRAND.instagram || "@TANYA.INTERIORS"}
+          </span>
 
-      {/* Subtle scroll cue */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.4, duration: 0.8 }}
-        className="hidden sm:flex absolute bottom-8 right-6 md:right-12 z-10 flex-col items-center gap-2"
-      >
-        <span className="text-[10px] uppercase tracking-[0.3em] text-white/60 [writing-mode:vertical-rl]">
-          Scroll
-        </span>
-        <motion.span
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
-          className="w-px h-10 bg-gradient-to-b from-white/70 to-transparent"
-        />
-      </motion.div>
+          <span className="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.22em] text-[#15140F]">
+            INTERIOR DESIGN STUDIO
+          </span>
+        </motion.div>
     </section>
   );
 }

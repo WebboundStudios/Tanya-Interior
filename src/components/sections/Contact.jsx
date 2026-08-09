@@ -45,20 +45,19 @@ export function Contact() {
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-          {/* Left Column: Skiper 50 / Carousel_004 Creative Swiper */}
-          <div className="lg:col-span-6 flex items-center justify-center">
+          {/* Left Column: Skiper 50 Creative Swiper Carousel */}
+          <div className="lg:col-span-6 flex items-center justify-center min-h-[440px] md:min-h-[540px]">
             <Carousel_004
               images={CONTACT_DATA.images}
               showPagination={true}
-              showNavigation={false}
               loop={true}
               autoplay={true}
             />
           </div>
 
-
           {/* Right Column: Contact Form */}
-          <div className="lg:col-span-6 bg-white p-8 md:p-10 rounded-[10px] border border-[#E8E2D8] shadow-[0_25px_60px_-35px_rgba(31,31,31,0.45)] flex flex-col justify-between">
+          <div className="lg:col-span-6 bg-white p-8 md:p-10 rounded-[10px] border border-[#E8E2D8] shadow-[0_25px_60px_-35px_rgba(31,31,31,0.45)] flex flex-col justify-between min-h-[520px]">
+
             <AnimatePresence mode="wait">
               {submitted ? (
                 <motion.div

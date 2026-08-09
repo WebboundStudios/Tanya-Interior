@@ -21,7 +21,7 @@ export const Carousel_004 = ({
 }) => {
   const formattedImages = images.map((img, idx) => {
     if (typeof img === "string") {
-      return { src: img, alt: `Interior Showcase ${idx + 1}` };
+      return { src: img, alt: `TT Interiors Showcase ${idx + 1}` };
     }
     return img;
   });
@@ -29,22 +29,21 @@ export const Carousel_004 = ({
   const css = `
   .Carousal_004 {
     width: 100%;
-    height: 480px;
-    padding-bottom: 50px !important;
+    height: 520px;
+    padding-bottom: 45px !important;
   }
   
   .Carousal_004 .swiper-slide {
     background-position: center;
     background-size: cover;
-    width: 280px;
-    height: 400px;
+    width: 320px;
     border-radius: 20px;
-    box-shadow: 0 20px 40px -15px rgba(0,0,0,0.3);
+    overflow: hidden;
   }
 
   .Carousal_004 .swiper-pagination-bullet {
     background: #8C6D46;
-    opacity: 0.35;
+    opacity: 0.4;
     transition: all 0.3s ease;
   }
 
@@ -52,7 +51,7 @@ export const Carousel_004 = ({
     background: #8C6D46;
     opacity: 1;
     width: 24px;
-    border-radius: 6px;
+    border-radius: 4px;
   }
   `;
 
@@ -61,10 +60,10 @@ export const Carousel_004 = ({
       initial={{ opacity: 0, translateY: 20 }}
       animate={{ opacity: 1, translateY: 0 }}
       transition={{
-        duration: 0.3,
+        duration: 0.5,
         delay: 0.2,
       }}
-      className={cn("relative w-full max-w-full overflow-hidden flex items-center justify-center", className)}
+      className={cn("relative w-full flex items-center justify-center overflow-hidden", className)}
     >
       <style>{css}</style>
 
@@ -79,7 +78,7 @@ export const Carousel_004 = ({
           autoplay={
             autoplay
               ? {
-                  delay: 2500,
+                  delay: 2800,
                   disableOnInteraction: false,
                 }
               : false
@@ -121,21 +120,22 @@ export const Carousel_004 = ({
           modules={[EffectCreative, Pagination, Autoplay]}
         >
           {formattedImages.map((image, index) => (
-            <SwiperSlide key={index} className="overflow-hidden">
+            <SwiperSlide key={index} className="shadow-2xl border border-[#E8E2D8]/50">
               <img
-                className="h-full w-full object-cover rounded-2xl luxury-image-filter"
+                className="h-full w-full object-cover scale-105 rounded-2xl luxury-image-filter"
                 src={image.src}
                 alt={image.alt}
                 loading="lazy"
+                referrerPolicy="no-referrer"
               />
             </SwiperSlide>
           ))}
           {showNavigation && (
             <div>
-              <div className="swiper-button-next after:hidden bg-black/40 hover:bg-black/60 p-2 rounded-full backdrop-blur-sm transition-all">
+              <div className="swiper-button-next after:hidden">
                 <ChevronRightIcon className="h-6 w-6 text-white" />
               </div>
-              <div className="swiper-button-prev after:hidden bg-black/40 hover:bg-black/60 p-2 rounded-full backdrop-blur-sm transition-all">
+              <div className="swiper-button-prev after:hidden">
                 <ChevronLeftIcon className="h-6 w-6 text-white" />
               </div>
             </div>

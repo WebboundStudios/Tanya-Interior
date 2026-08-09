@@ -62,17 +62,15 @@ export function WhyChooseUs() {
                 transition={{ duration: 0.55, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
                 onMouseEnter={() => setActiveCard(idx)}
                 onClick={() => setActiveCard(idx)}
-                className={`group relative p-6 sm:p-7 xl:p-8 min-h-[360px] md:min-h-[420px] flex flex-col justify-between transition-all duration-500 overflow-hidden cursor-pointer ${radius} ${bgClass} border border-[#E8E2D8]/60 lg:border-[#E8E2D8]/40 ${
-                  isActive ? 'lg:shadow-[0_30px_65px_-30px_rgba(31,31,31,0.4)] lg:z-10' : ''
-                }`}
+                className={`group relative p-6 sm:p-7 xl:p-8 min-h-[360px] md:min-h-[420px] flex flex-col justify-between transition-all duration-500 overflow-hidden cursor-pointer ${radius} ${bgClass} border border-[#E8E2D8]/60 lg:border-[#E8E2D8]/40 ${isActive ? 'lg:shadow-[0_30px_65px_-30px_rgba(31,31,31,0.4)] lg:z-10' : ''
+                  }`}
               >
                 {/* Background Image Layer (Active or Hovered or Always Active on Mobile) */}
                 <div
-                  className={`absolute inset-0 z-0 transition-opacity duration-500 overflow-hidden ${
-                    isActive
+                  className={`absolute inset-0 z-0 transition-opacity duration-500 overflow-hidden ${isActive
                       ? 'opacity-100'
                       : 'opacity-100 lg:opacity-0 lg:group-hover:opacity-100'
-                  }`}
+                    }`}
                 >
                   <img
                     src={item.image}
@@ -87,11 +85,10 @@ export function WhyChooseUs() {
                 {/* Large Number Top Left */}
                 <div className="relative z-10">
                   <span
-                    className={`font-sans text-5xl sm:text-6xl md:text-7xl font-light tracking-tight transition-colors duration-300 block ${
-                      isActive
+                    className={`font-sans text-5xl sm:text-6xl md:text-7xl font-light tracking-tight transition-colors duration-300 block ${isActive
                         ? 'text-white'
                         : 'text-white lg:text-[#1F1F1F] lg:group-hover:text-white'
-                    }`}
+                      }`}
                   >
                     {item.number}
                   </span>
@@ -99,36 +96,32 @@ export function WhyChooseUs() {
 
                 {/* Title Bottom Left & Description Reveal */}
                 <div
-                  className={`relative z-10 pt-4 border-b transition-colors duration-300 pb-3 ${
-                    isActive
+                  className={`relative z-10 pt-4 border-b transition-colors duration-300 pb-3 ${isActive
                       ? 'border-white/40'
                       : 'border-white/40 lg:border-[#1F1F1F]/20 lg:group-hover:border-white/40'
-                  }`}
+                    }`}
                 >
                   <h3
-                    className={`font-sans text-xl sm:text-2xl lg:text-[1.2rem] xl:text-xl font-normal transition-colors duration-300 tracking-wide leading-snug break-words ${
-                      isActive
+                    className={`font-sans text-xl sm:text-2xl lg:text-[1.2rem] xl:text-xl font-normal transition-colors duration-300 tracking-wide leading-snug break-words ${isActive
                         ? 'text-white'
                         : 'text-white lg:text-[#1F1F1F] lg:group-hover:text-white'
-                    }`}
+                      }`}
                   >
                     {item.title}
                   </h3>
 
                   {/* Description Paragraph — Always active on mobile, expanded on hover for desktop */}
                   <div
-                    className={`grid transition-all duration-500 overflow-hidden ${
-                      isActive
+                    className={`grid transition-all duration-500 overflow-hidden ${isActive
                         ? 'grid-rows-[1fr]'
                         : 'grid-rows-[1fr] lg:grid-rows-[0fr] lg:group-hover:grid-rows-[1fr]'
-                    }`}
+                      }`}
                   >
                     <p
-                      className={`min-h-0 text-xs sm:text-[13px] text-white/90 font-light leading-relaxed pt-3 transition-opacity duration-500 ${
-                        isActive
+                      className={`min-h-0 text-xs sm:text-[13px] text-white/90 font-light leading-relaxed pt-3 transition-opacity duration-500 ${isActive
                           ? 'opacity-100'
                           : 'opacity-100 lg:opacity-0 lg:group-hover:opacity-100'
-                      }`}
+                        }`}
                     >
                       {item.description}
                     </p>
@@ -137,9 +130,8 @@ export function WhyChooseUs() {
 
                 {/* Active-state accent line, reinforces which pillar is in focus */}
                 <span
-                  className={`absolute bottom-0 left-0 right-0 h-[3px] bg-[#8C6D46] origin-left transition-transform duration-500 z-10 ${
-                    isActive ? 'scale-x-100' : 'scale-x-0'
-                  }`}
+                  className={`absolute bottom-0 left-0 right-0 h-[3px] bg-[#8C6D46] origin-left transition-transform duration-500 z-10 ${isActive ? 'scale-x-100' : 'scale-x-0'
+                    }`}
                 />
               </motion.div>
             );
