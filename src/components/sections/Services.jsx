@@ -57,7 +57,7 @@ export function Services() {
 
       {/* MOBILE VIEW ONLY (< lg) — Restored previous mobile horizontal sliding deck layout */}
       <div ref={mobileSectionRef} className="block lg:hidden relative py-12">
-        <div className="sticky top-60 z-30 bg-[#F7F5EE] pt-8 pb-4 overflow-hidden border-b border-[#D9D0BC]/50">
+        <div className="sticky top-16 z-30 bg-[#F7F5EE] pt-4 pb-4 overflow-hidden border-b border-[#D9D0BC]/50 shadow-sm">
           <div className="w-full pl-6 overflow-hidden">
             <motion.div
               className="flex items-center gap-2"
