@@ -3,7 +3,7 @@ import { CTA_DATA } from '../../constants/data';
 import { Button } from '../ui/Button';
 
 export function CTASection() {
-  const bgImage = "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmv-KYV49vH1-nIpaGafCnabWK7f-v8XlOnGwZXslJopiEQLuFCZgs9DLL2glvv83yryqR9jNhYS7qAQzE8zxzXuw-dlJkmCenNyhY6ql2ByIDa9qoptRNzAdUEztx9ubJEeuizN1-KKZbc=s1360-w1360-h1020-rw";
+  const bgImage = "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2000&q=85";
 
   return (
     <section className="relative min-h-[580px] md:min-h-[660px] flex items-center justify-center overflow-hidden py-24">

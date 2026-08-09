@@ -1,10 +1,10 @@
-const GOOGLE_PROJECT_IMG_1 = "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWncC25B6yxbFDOuyVKQfba2c10YOQBdgRWhyg8Mv_KZJuk1h1Bhw_z6yZSepFEX_uoMsnAPwQesoFVn0Vi5eZdS1St9_ol0cFaCZpp0jw59xQtKfSb8E-xvT2oXPf-EYI-0JDcMiCHfEsOG=s1360-w1360-h1020-rw";
-const GOOGLE_PROJECT_IMG_2 = "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnKcPE43eOohKJeescFlPKXa6AZYAd9DbIAfrPa3KkDxvhlbK8YrHO5ImsgKAwf1LTCKd-TyXqJgMtObYGf4VQsKn4JBBuFssiByWDIcH793TfntcG8O8p5BI4-FudbrJwLDrMWFU4nWAw=s1360-w1360-h1020-rw";
-const GOOGLE_PROJECT_IMG_3 = "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWm16CKuyl-Su12U8GG3dpfPa6GumKaevB8HoVABUzGBVqiulhpXR7yMzVC0pCTiyCPlgbYyuRxtsLyDbwVX_-bPfrNqZDN9uZGIshymVNFR260ZNNbDosADy5BRQcyu0E3bpx-hNaVKANU=s1360-w1360-h1020-rw";
-const GOOGLE_PROJECT_IMG_4 = "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmnZwOTllvz_wIMFXwqAtiiaXguO04N4wxlbyJgqmkwq5_c7m8s0OXIFnEebXbtK8yLJ6hPS3aS8PERnPznrDnzH0EXmKddhHC7uR3eerVw5Oab7uBd4_wCD_SqO1eMkfECBfGysHR89tS4=s1360-w1360-h1020-rw";
-const GOOGLE_PROJECT_IMG_5 = "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlwfqDwxbHXJ8ZcaNzMH1_88pVnOjGvx5EDjTPbl3yD_KjB5KAOHq0qn-Ai1MmMHzNkNNIrtnqD6WKYevd8IqpJEONZipVELUvn0xiVTFZs0_8y2UmcWr9OvclLJ-ZVFduOHrhYBZM1KFcd=s1360-w1360-h1020-rw";
-const GOOGLE_PROJECT_IMG_6 = "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnmOBxxmAaXwVsUF6zskWhZidQporWuQeLs9K7SSuE3p2rT0HPZgmJBSB2U9OnR4VgWtbtTMQN3M28m8y-LVRJZB-t79gcwbibPSOSBxIJse3OvNAGPu442LQqbC4mYMLVqwNhsw0Kq46qb=s1360-w1360-h1020-rw";
-const GOOGLE_PROJECT_IMG_7 = "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmeRqTckQWz9tu1D274RxIrycNXlbETrUm9_vl6QgCEHUhDbhnUJC_n8ZQkHtKaRP8h20J1IxpO0Y4LDNLkCODiKnnh4-XCpN0lHB167b445yImJGh1G1jAPA4WscQ9h5fGs-5fSkIABw3w=s1360-w1360-h1020-rw";
+const GOOGLE_PROJECT_IMG_1 = "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1600&q=80";
+const GOOGLE_PROJECT_IMG_2 = "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1600&q=80";
+const GOOGLE_PROJECT_IMG_3 = "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1600&q=80";
+const GOOGLE_PROJECT_IMG_4 = "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1600&q=80";
+const GOOGLE_PROJECT_IMG_5 = "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1600&q=80";
+const GOOGLE_PROJECT_IMG_6 = "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80";
+const GOOGLE_PROJECT_IMG_7 = "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1600&q=80";
 
 export const SITE_BRAND = {
   name: "Kaaन्वी Design Studio",

@@ -1,12 +1,12 @@
-const H1 = "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkfyK_sBNZtZJ-qyymR3aDoUm2rAWTdHDg8R-XPopVK_4JnNbPbZnhtpRy66kXbsHub5ofaiAFhwEyzfgy3dRXhYWoHzRXs9_rsaKkPgwXVsVjAEAIaHF2PgfEnt_1w4USn0K85vcFvcWTC=s1360-w1360-h1020-rw";
-const H2 = "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWklFwuemuOOOnXtiXnQgH1FC_KDZb0w9OKYh6tirPY1qzMx54G4hsFhZueAKsmeT8N3BrNQCntCtGfRNv9rsHHmPiiZuSujxbLP--Nj8H4zGHJAfXztREyA2FOOlQXne9T_rZa5ZhA6_zZo=s1360-w1360-h1020-rw";
-const H3 = "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmWMkxut5mEJIRAKGMxCcqB1RoV7ge77elzpSfffN3sNjiKUoW-XWaWgEzTQIITN08n7Oa7h9zrhmN5WFKHPew1Vb5wlxjcxSGOoUDjw7FASjmDKmYZNzEFW58oCDXfobo1RV_T=s1360-w1360-h1020-rw";
+const H1 = "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1600&q=80";
+const H2 = "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1600&q=80";
+const H3 = "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1600&q=80";
 
-const V1 = "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWk2-gTB_4pL9HgZkgxwkiW1JoRTI2CQO9DuWd8FTi951_lzGAXfe7ZXPknjZyadiVjxQRxmzdP_jamnijGLszlKgqw_3WOc8tzVLVKdh8bPsIfQEOcv-lLi9qv5-0l310YFV3IBIGVib7jn=s1360-w1360-h1020-rw";
-const V2 = "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWk04CGchn5448rCxyH8gofYA4fMnr9joTp2KJhUvfsY5zI0POaHcOGgSkpZsywP9uipLkkU83CMxYwm-CU3CChxH-0y7UezE1xmockCD_Xo6SBM3uUSyK-KB7yuMZPuT2zWh634FRzZHiU=s1360-w1360-h1020-rw";
-const V3 = "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkkpCnD6KzUkkkoYXeYaChSLJVX_g28-QJrN44pxoOFf6e3_-oIKoXoyF6KlrW0E19YDYovstMjWclCvxg_aWtYquTsYSq5givSA-BUWkIl3KlIbh4yRiyqvMwOHV04xHUYkZG5RNTfiJ6Q=s1360-w1360-h1020-rw";
+const V1 = "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=80";
+const V2 = "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=80";
+const V3 = "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80";
 
-const HERO_BG = "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmOk3IA8lAsRtIPN7x3X0YRKL_VYG3lqhv_t_fK-fuzDIaGX_OTe4GdZALIWFdvmreendZbApCe2YaPY_1VkfRESOsy72liE2z_w0KPBXFibSF_tznOGEkc7nPjW8HE_1dPxSN1rncjWzPq=s1360-w1360-h1020-rw";
+const HERO_BG = "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=2000&q=85";
 
 export const SITE_BRAND = {
   name: "Perspect Hues Design Studio",
