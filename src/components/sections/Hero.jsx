@@ -127,12 +127,20 @@ export function Hero() {
         >
           {/* Left: Brand Identity Logo */}
           <a href="#hero" className="flex items-center gap-2.5 group cursor-pointer">
-            <div className="w-5 h-5 flex items-center justify-center text-[#15140F]">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" className="w-5 h-5">
-                <path d="M3 21V9l9-7 9 7v12H3z" />
-                <path d="M9 21V12h6v9" />
-              </svg>
-            </div>
+            {SITE_BRAND.logoImage ? (
+              <img
+                src={SITE_BRAND.logoImage}
+                alt={SITE_BRAND.name}
+                className="h-8 md:h-10 w-auto object-contain rounded-xs"
+              />
+            ) : (
+              <div className="w-5 h-5 flex items-center justify-center text-[#15140F]">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" className="w-5 h-5">
+                  <path d="M3 21V9l9-7 9 7v12H3z" />
+                  <path d="M9 21V12h6v9" />
+                </svg>
+              </div>
+            )}
             <span className="font-sans font-extrabold text-lg sm:text-xl tracking-wider uppercase text-[#15140F]">
               {SITE_BRAND.name || "TT INTERIORS"}
             </span>
@@ -221,7 +229,7 @@ export function Hero() {
           className="w-full max-w-7xl mx-auto flex items-center justify-between z-30 pt-4"
         >
           <span className="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.22em] text-[#15140F]">
-            WE ARE {SITE_BRAND.instagram || "@TANYA.INTERIORS"}
+            LUXURY RESIDENTIAL & COMMERCIAL
           </span>
 
           <span className="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.22em] text-[#15140F]">
