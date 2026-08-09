@@ -1,0 +1,263 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Manrope', system-ui, sans-serif;
+
+  --color-sand: #F8F6F2;
+  --color-sand-subtle: #EFECE6;
+  --color-obsidian: #161616;
+  --color-charcoal: #1F1F1F;
+  --color-muted: #6F6F6F;
+  --color-bronze: #8C6D46;
+  --color-gold: #B08D57;
+  --color-border-subtle: #E8E2D8;
+}
+
+@layer base {
+  html {
+    font-family: 'Manrope', system-ui, sans-serif;
+    background-color: #F8F6F2;
+    color: #1F1F1F;
+    scroll-behavior: smooth;
+    /* Accounts for the fixed navbar so anchor links (#about, #services, etc.)
+       don't land content underneath it. */
+    scroll-padding-top: 96px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Studio-branded text selection, small detail that keeps the palette
+     consistent even in browser chrome. */
+  ::selection {
+    background-color: #8C6D46;
+    color: #F8F6F2;
+  }
+
+  /* Visible, on-brand keyboard focus. Buttons/links keep their own hover
+     styling; this only governs the focus ring so keyboard users always
+     have a clear indicator. */
+  :focus-visible {
+    outline: 2px solid #8C6D46;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Respect reduced-motion preferences across every animation and
+     transition in the app, including the framer-motion-driven ones,
+     which read this via the browser's animation timing. */
+  @media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+.font-serif {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+.font-sans {
+  font-family: 'Manrope', system-ui, sans-serif;
+}
+
+.font-arya {
+  font-family: 'Arya', 'Rozha One', 'Martel', sans-serif;
+  letter-spacing: 0.02em;
+}
+
+.font-rozha {
+  font-family: 'Rozha One', 'Arya', serif;
+}
+
+.font-martel {
+  font-family: 'Martel', 'Arya', serif;
+}
+
+/* Architectural restrained button */
+.dekora-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 10px;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Subtle lift on hover so every CTA in the site reads as a tactile,
+   pressable object rather than a flat rectangle. */
+.dekora-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px -16px rgba(140, 109, 70, 0.5);
+}
+
+.dekora-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 14px -10px rgba(140, 109, 70, 0.45);
+}
+
+.dekora-btn .btn-text-wrapper {
+  position: relative;
+  z-index: 10;
+  overflow: hidden;
+  height: 1.25em;
+  line-height: 1.25em;
+}
+
+.dekora-btn .btn-text-inner {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dekora-btn:hover .btn-text-inner {
+  transform: translateY(-50%);
+}
+
+.dekora-btn .btn-text-item {
+  height: 1.25em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Background expansion layer */
+.dekora-btn .btn-bg-fill {
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dekora-btn:hover .btn-bg-fill {
+  transform: scaleY(1);
+}
+
+/* Luxury Editorial Image Filter Treatment */
+.luxury-image-filter {
+  filter: sepia(0.12) saturate(0.94) contrast(0.97) brightness(0.98);
+}
+
+/* Lenis smooth scrolling rules */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Hide scrollbar for horizontal mobile slider */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Architectural Luxury Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F8F6F2;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C0B7A8;
+  border-radius: 10px;
+  border: 2px solid #F8F6F2;
+  transition: background-color 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8C6D46;
+}
+
+/* Firefox scrollbar styling */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #8C6D46 #F8F6F2;
+}
+
+/* ------------------------------------------------------------------ */
+/* Shared premium utilities, used across the dark sections (Hero,     */
+/* Process, Footer) and the testimonials marquee.                      */
+/* ------------------------------------------------------------------ */
+
+/* Very fine film-grain texture for the obsidian sections. Kept at a low
+   opacity so it reads as material texture rather than visible noise —
+   the one deliberately "maximalist" flourish, used sparingly. Apply to
+   an element that already has position: relative/absolute/fixed/sticky
+   (this intentionally doesn't set position itself, so it never fights
+   with Tailwind's own position utilities); the grain sits in its own
+   layer so it never intercepts clicks. */
+.bg-grain {
+  isolation: isolate;
+}
+
+.bg-grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+/* Infinite horizontal scroll used by the testimonials marquee. Defined
+   globally so it can be paused/resumed via a plain inline style toggle
+   (animation-play-state) without re-mounting the animation. */
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-33.333%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee-scroll 42s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+  }
+}
