@@ -35,7 +35,7 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="py-24 md:py-36 bg-[#EFECE6] border-t border-[#E8E2D8]">
+    <section id="contact" className="py-24 md:py-36 bg-[#EFECE6] border-t border-[#E8E2D8] overflow-hidden w-full">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <SectionTitle
           subtitle={CONTACT_DATA.subtitle}

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { SITE_BRAND } from '../../constants/data';
 import { StaircaseMenu } from './StaircaseMenu';
+import { TextRoll } from '../ui/TextRoll';
+import { motion } from 'framer-motion';
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -26,15 +28,15 @@ export function Navbar() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${
+        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
           isScrolled
-            ? 'bg-[#F7F5EE]/90 backdrop-blur-md py-4 shadow-sm border-b border-[#D9D0BC]/60 opacity-100 translate-y-0'
-            : 'opacity-0 -translate-y-full pointer-events-none'
+            ? 'bg-[#F7F5EE]/95 backdrop-blur-md py-3.5 shadow-sm border-b border-[#D9D0BC]/60'
+            : 'bg-[#F7F5EE]/80 backdrop-blur-sm py-4 border-b border-transparent'
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
           {/* Brand Logo */}
-          <a href="#hero" className="flex items-center gap-2.5 group cursor-pointer">
+          <motion.a href="#hero" className="flex items-center gap-2.5 group cursor-pointer" initial="initial" whileHover="hovered">
             {SITE_BRAND.logoImage ? (
               <img
                 src={SITE_BRAND.logoImage}
@@ -50,22 +52,12 @@ export function Navbar() {
               </div>
             )}
             <span className="font-sans font-extrabold text-lg tracking-wider uppercase text-[#15140F]">
-              {SITE_BRAND.name || 'TT INTERIORS'}
+              <TextRoll>{SITE_BRAND.name || 'TT INTERIORS'}</TextRoll>
             </span>
-          </a>
+          </motion.a>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="text-xs uppercase tracking-[0.2em] font-medium text-[#15140F] hover:text-[#A6813F] transition-colors py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-[#A6813F] after:transition-all hover:after:w-full"
-              >
-                {link.name}
-              </a>
-            ))}
-          </nav>
+
+
 
           {/* Right Action Menu Button (2 Horizontal Lines Icon) */}
           <div className="flex items-center gap-6">

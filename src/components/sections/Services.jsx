@@ -4,7 +4,7 @@ import { SERVICES_DATA } from '../../constants/data';
 
 function DesktopServiceTextBlock({ service, idx, onActive }) {
   const ref = useRef(null);
-  
+
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ['start center', 'end center'],
@@ -54,11 +54,11 @@ export function Services() {
 
   return (
     <section id="services" className="bg-[#F7F5EE] text-[#15140F]">
-      
+
       {/* MOBILE VIEW ONLY (< lg) — Restored previous mobile horizontal sliding deck layout */}
-      <div ref={mobileSectionRef} className="block lg:hidden relative py-12">
-        <div className="sticky top-0 z-30 bg-[#F7F5EE] pt-8 pb-4 overflow-hidden border-b border-[#D9D0BC]/50">
-          <div className="w-full pl-6 overflow-hidden">
+      <div ref={mobileSectionRef} className="block lg:hidden relative py-8">
+        <div className="sticky top-14 sm:top-20 z-30 bg-[#F7F5EE] pt-4 pb-4 border-b border-[#D9D0BC]/50">
+          <div className="w-full px-6 overflow-hidden">
             <motion.div
               className="flex items-center gap-2"
               animate={{ x: `calc(-${mobileActiveIndex * 83}vw - ${mobileActiveIndex * 8}px)` }}
@@ -74,9 +74,8 @@ export function Services() {
                       scale: isActive ? 1 : 0.85,
                     }}
                     transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                    className={`relative shrink-0 w-[83vw] aspect-[4/3] rounded-xl overflow-hidden bg-[#E4DBC6] border border-[#D9D0BC] cursor-pointer origin-left transition-shadow duration-500 ${
-                      isActive ? 'ring-1 ring-[#A6813F]/40 shadow-xl' : ''
-                    }`}
+                    className={`relative shrink-0 w-[83vw] aspect-[4/3] rounded-xl overflow-hidden bg-[#E4DBC6] border border-[#D9D0BC] cursor-pointer origin-left transition-shadow duration-500 ${isActive ? 'ring-1 ring-[#A6813F]/40 shadow-xl' : ''
+                      }`}
                   >
                     <img
                       src={service.image}
@@ -92,23 +91,45 @@ export function Services() {
           </div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-6 relative z-10 flex flex-col gap-10 pt-10 pb-16">
+        <div className="max-w-7xl mx-auto px-6 relative z-10 flex flex-col gap-12 sm:gap-16 pt-8 pb-20">
           {SERVICES_DATA.map((service, idx) => (
             <div
               key={service.id}
-              className="flex flex-col items-start justify-center border-b border-[#D9D0BC]/60 pb-8 last:border-b-0"
+              className="relative flex flex-col items-start justify-center py-12 sm:py-16 border-b border-[#D9D0BC]/60 last:border-b-0 overflow-hidden"
             >
-              <span className="text-xs font-mono text-[#A6813F] font-semibold mb-2 block tracking-widest">
-                0{idx + 1} — {service.subtitle || 'OUR SERVICE'}
-              </span>
 
-              <h2 className="font-serif text-3xl font-normal leading-[1.12] text-[#15140F] mb-4">
+
+              {/* Subtitle tag with line accent */}
+              <div className="flex items-center gap-2.5 mb-3.5 relative z-10">
+                <span className="w-6 h-[1.5px] bg-[#A6813F]" />
+                <span className="text-xs uppercase tracking-[0.25em] text-[#A6813F] font-semibold">
+                  {service.subtitle || 'OUR SERVICE'}
+                </span>
+              </div>
+
+              {/* Large Command Headline */}
+              <h2 className="font-sans font-bold text-3xl sm:text-4xl uppercase tracking-tight text-[#15140F] mb-6 relative z-10 leading-[1.1]">
                 {service.title}
               </h2>
 
-              <p className="text-sm text-[#4B473E] font-normal leading-relaxed">
+              {/* Rich Body Description */}
+              <p className="text-base sm:text-lg text-[#15140F] font-normal leading-[1.7] max-w-lg font-sans relative z-10">
                 {service.description}
               </p>
+
+              {/* Bottom Feature Divider & Micro CTA */}
+              <div className="mt-7 pt-4 border-t border-[#D9D0BC]/40 w-full flex items-center justify-between relative z-10">
+                <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] font-medium text-[#8C6D46]">
+                  BESPOKE ARCHITECTURE & INTERIORS
+                </span>
+                <a
+                  href="#contact"
+                  className="text-xs font-semibold uppercase tracking-[0.18em] text-[#15140F] hover:text-[#A6813F] transition-colors flex items-center gap-1.5"
+                >
+                  <span>INQUIRE</span>
+                  <span className="text-[14px]">→</span>
+                </a>
+              </div>
             </div>
           ))}
         </div>
@@ -118,7 +139,7 @@ export function Services() {
       <div className="hidden lg:block py-24 md:py-36">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start relative">
-            
+
             {/* Left Column: Natural Vertical Scroll Text List */}
             <div className="lg:col-span-6 flex flex-col">
               {SERVICES_DATA.map((service, idx) => (

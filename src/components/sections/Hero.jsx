@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { HERO_DATA, SITE_BRAND } from '../../constants/data';
-import { StaircaseMenu } from '../layout/StaircaseMenu';
 
 function HeroCardItem({ card, fanProgress }) {
   const rotate = useTransform(fanProgress, [0, 1], [card.startRotate, card.endRotate]);
@@ -30,7 +29,6 @@ function HeroCardItem({ card, fanProgress }) {
 
 export function Hero() {
   const heroRef = useRef(null);
-  const [staircaseMenuOpen, setStaircaseMenuOpen] = useState(false);
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
 
   useEffect(() => {
@@ -116,69 +114,9 @@ export function Hero() {
     <section
       id="hero"
       ref={heroRef}
-      className="relative min-h-screen w-full flex flex-col justify-between overflow-visible bg-[#F7F5EE] text-[#15140F] select-none px-6 md:px-12 pt-6 pb-12"
+      className="relative min-h-screen w-full max-w-full flex flex-col justify-between overflow-hidden bg-[#F7F5EE] text-[#15140F] select-none px-6 md:px-12 pt-24 md:pt-28 pb-12"
     >
-        {/* 1. Header / Navigation Bar */}
-        <motion.header
-          initial={{ opacity: 0, y: -16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="w-full max-w-7xl mx-auto flex items-center justify-between z-30"
-        >
-          {/* Left: Brand Identity Logo */}
-          <a href="#hero" className="flex items-center gap-2.5 group cursor-pointer">
-            {SITE_BRAND.logoImage ? (
-              <img
-                src={SITE_BRAND.logoImage}
-                alt={SITE_BRAND.name}
-                className="h-8 md:h-10 w-auto object-contain rounded-xs"
-              />
-            ) : (
-              <div className="w-5 h-5 flex items-center justify-center text-[#15140F]">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" className="w-5 h-5">
-                  <path d="M3 21V9l9-7 9 7v12H3z" />
-                  <path d="M9 21V12h6v9" />
-                </svg>
-              </div>
-            )}
-            <span className="font-sans font-extrabold text-lg sm:text-xl tracking-wider uppercase text-[#15140F]">
-              {SITE_BRAND.name || "TT INTERIORS"}
-            </span>
-          </a>
-
-          {/* Center: Micro Category Tagline */}
-          <div className="hidden md:flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-[#6B6459] font-medium">
-            <span className="text-[#A6813F]">✳</span>
-            <span>INTERIOR STYLING — LIGHTING — TURNKEY</span>
-          </div>
-
-          {/* Right: Get In Touch CTA + Menu */}
-          <div className="flex items-center gap-6">
-            <a
-              href="#contact"
-              className="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-[#15140F] border-b border-[#15140F] pb-0.5 hover:opacity-70 transition-opacity"
-            >
-              <span>GET IN TOUCH</span>
-            </a>
-
-            <button
-              onClick={() => setStaircaseMenuOpen(true)}
-              className="p-1.5 text-[#15140F] hover:opacity-75 transition-opacity focus:outline-none cursor-pointer"
-              aria-label="Open Fullscreen Menu"
-            >
-              <div className="flex flex-col gap-1.5 w-6 items-end">
-                <span className="w-6 h-[2px] bg-[#15140F]" />
-                <span className="w-4 h-[2px] bg-[#15140F]" />
-              </div>
-            </button>
-          </div>
-
-          {/* Fullscreen Staircase Overlay Menu */}
-          <StaircaseMenu
-            isOpen={staircaseMenuOpen}
-            onClose={() => setStaircaseMenuOpen(false)}
-          />
-        </motion.header>
+        {/* Main Hero Content — Huge Centered Headline + Overlapping Fanning Image Card Stack */}
 
         {/* 2. Main Hero Content — Huge Centered Headline + Overlapping Fanning Image Card Stack */}
         <div className="relative w-full max-w-7xl mx-auto flex-1 flex flex-col items-center justify-center text-center my-auto py-8">

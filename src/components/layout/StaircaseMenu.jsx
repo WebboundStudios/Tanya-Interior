@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 import { SITE_BRAND } from '../../constants/data';
+import { TextRoll } from '../ui/TextRoll';
 
 const columnsCount = 5;
 
@@ -51,16 +53,39 @@ const navItems = [
 ];
 
 export function StaircaseMenu({ isOpen, onClose }) {
-  return (
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
+
+  if (!mounted) return null;
+
+  return createPortal(
     <AnimatePresence>
       {isOpen && (
         <motion.div
           initial={{ opacity: 1 }}
           exit={{ opacity: 1 }}
-          className="fixed inset-0 z-50 overflow-hidden select-none"
+          data-lenis-prevent
+          className="fixed inset-0 z-[99999] overflow-hidden select-none"
         >
           {/* Alternating Up/Down Animated Column Backdrop */}
-          <div className="absolute inset-0 flex w-full h-full pointer-events-none z-0">
+          <div className="absolute inset-0 flex w-full h-full h-[100dvh] pointer-events-none z-0 overflow-hidden">
             {[...Array(columnsCount)].map((_, i) => (
               <motion.div
                 key={i}
@@ -69,7 +94,7 @@ export function StaircaseMenu({ isOpen, onClose }) {
                 initial="initial"
                 animate="animate"
                 exit="exit"
-                className={`w-1/5 h-full bg-[#20201E] ${
+                className={`w-[20.2vw] -mr-[0.2vw] h-[105%] bg-[#20201E] ${
                   i % 2 === 0 ? 'origin-top' : 'origin-bottom'
                 } border-r border-white/5 last:border-r-0`}
               />
@@ -94,10 +119,12 @@ export function StaircaseMenu({ isOpen, onClose }) {
           >
             {/* Top Bar: Brand Logo & Close Button */}
             <div className="max-w-7xl mx-auto w-full flex items-center justify-between">
-              <a
+              <motion.a
                 href="#hero"
                 onClick={onClose}
                 className="flex items-center gap-2.5 group cursor-pointer"
+                initial="initial"
+                whileHover="hovered"
               >
                 {SITE_BRAND.logoImage ? (
                   <img
@@ -114,9 +141,9 @@ export function StaircaseMenu({ isOpen, onClose }) {
                   </div>
                 )}
                 <span className="font-sans font-extrabold text-lg sm:text-xl tracking-wider uppercase text-[#E8E6E1]">
-                  {SITE_BRAND.name || 'TT INTERIORS'}
+                  <TextRoll>{SITE_BRAND.name || 'TT INTERIORS'}</TextRoll>
                 </span>
-              </a>
+              </motion.a>
 
               <button
                 onClick={onClose}
@@ -139,7 +166,9 @@ export function StaircaseMenu({ isOpen, onClose }) {
                   transition={{ duration: 0.45, delay: 0.25 + idx * 0.04 }}
                   className="font-sans font-normal text-2xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight text-[#E8E6E1] hover:text-white hover:scale-[1.02] transition-all duration-300 cursor-pointer block leading-tight"
                 >
-                  {item.name}
+                  <motion.span initial="initial" whileHover="hovered">
+                    <TextRoll>{item.name}</TextRoll>
+                  </motion.span>
                 </motion.a>
               ))}
             </div>
@@ -174,6 +203,7 @@ export function StaircaseMenu({ isOpen, onClose }) {
           </motion.div>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 }

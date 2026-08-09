@@ -10,7 +10,7 @@ export function FAQ() {
   };
 
   return (
-    <section id="faq" className="py-24 md:py-32 bg-[#F8F6F2]">
+    <section id="faq" className="py-24 md:py-32 bg-[#F8F6F2] overflow-hidden w-full">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
 
         {/* Section Label + Title — Left-aligned, full width */}
