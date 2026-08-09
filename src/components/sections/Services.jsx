@@ -4,7 +4,7 @@ import { SERVICES_DATA } from '../../constants/data';
 
 function DesktopServiceTextBlock({ service, idx, onActive }) {
   const ref = useRef(null);
-  
+
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ['start center', 'end center'],
@@ -54,10 +54,10 @@ export function Services() {
 
   return (
     <section id="services" className="bg-[#F7F5EE] text-[#15140F]">
-      
+
       {/* MOBILE VIEW ONLY (< lg) — Restored previous mobile horizontal sliding deck layout */}
       <div ref={mobileSectionRef} className="block lg:hidden relative py-12">
-        <div className="sticky top-0 z-30 bg-[#F7F5EE] pt-8 pb-4 overflow-hidden border-b border-[#D9D0BC]/50">
+        <div className="sticky top-60 z-30 bg-[#F7F5EE] pt-8 pb-4 overflow-hidden border-b border-[#D9D0BC]/50">
           <div className="w-full pl-6 overflow-hidden">
             <motion.div
               className="flex items-center gap-2"
@@ -74,9 +74,8 @@ export function Services() {
                       scale: isActive ? 1 : 0.85,
                     }}
                     transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                    className={`relative shrink-0 w-[83vw] aspect-[4/3] rounded-xl overflow-hidden bg-[#E4DBC6] border border-[#D9D0BC] cursor-pointer origin-left transition-shadow duration-500 ${
-                      isActive ? 'ring-1 ring-[#A6813F]/40 shadow-xl' : ''
-                    }`}
+                    className={`relative shrink-0 w-[83vw] aspect-[4/3] rounded-xl overflow-hidden bg-[#E4DBC6] border border-[#D9D0BC] cursor-pointer origin-left transition-shadow duration-500 ${isActive ? 'ring-1 ring-[#A6813F]/40 shadow-xl' : ''
+                      }`}
                   >
                     <img
                       src={service.image}
@@ -118,7 +117,7 @@ export function Services() {
       <div className="hidden lg:block py-24 md:py-36">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start relative">
-            
+
             {/* Left Column: Natural Vertical Scroll Text List */}
             <div className="lg:col-span-6 flex flex-col">
               {SERVICES_DATA.map((service, idx) => (
